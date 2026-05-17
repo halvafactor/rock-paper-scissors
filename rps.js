@@ -11,64 +11,75 @@ function getComputerChoice() {
     }
 }
 
-/*console.log(getComputerChoice()); -- warning, this was logging a separate value from
-computerChoice that playRound() uses, making it seem like the game logic is broken*/
-
 function getHumanChoice() {
     return window.prompt("Rock, paper, or scissors?");
 }
 
-let humanScore = 0;
-let computerScore = 0;
-
-function playRound(humanChoice, computerChoice) {
-    humanChoice = humanChoice.toLowerCase();
-    
-    if (humanChoice === "rock" && computerChoice === "rock") {
-        return "You tie.";
-    }
-
-    else if (humanChoice === "rock" && computerChoice === "paper") {
-        computerScore++;
-        return `Paper beats rock, you lose. Computer: ${computerScore}, Human: ${humanScore}`;
-    }
-
-    else if (humanChoice === "rock" && computerChoice === "scissors") {
-        humanScore++;
-        return `Rock beats scissors, you win! Computer: ${computerScore}, Human: ${humanScore}`;
-    }
-
-    else if (humanChoice === "paper" && computerChoice === "rock") {
-        humanScore++;
-        return  `Paper beats rock, you win! Computer: ${computerScore}, Human: ${humanScore}`;
-    }
-
-    else if (humanChoice === "paper" && computerChoice === "paper") {
-        return "You tie.";
-    }
-
-    else if (humanChoice === "paper" && computerChoice === "scissors") {
-        computerScore++;
-        return `Scissors beat paper, you lose. Computer: ${computerScore}, Human: ${humanScore}`;
-    }
-
-    else if (humanChoice === "scissors" && computerChoice === "rock") {
-        computerScore++;
-        return `Rock beats scissors, you lose. Computer: ${computerScore}, Human: ${humanScore}`;
-    }
-
-    else if (humanChoice === "scissors" && computerChoice === "paper") {
-        humanScore++;
-        return `Scissors beat paper, you win! Computer: ${computerScore}, Human: ${humanScore}`;
-    }
-
-    else if (humanChoice === "scissors" && computerChoice === "scissors") {
-        return "You tie.";
-    }
+for (let i = 0; i < 5; i++) {
+    playGame();
 }
 
-const humanChoice = getHumanChoice();
-const computerChoice = getComputerChoice();
+function playGame() {
+ 
+    const humanChoice = getHumanChoice();
+    const computerChoice = getComputerChoice();
+    let humanScore = 0;
+    let computerScore = 0;
+    let message;
 
-console.log(`human choice ${humanChoice}, computer choice ${computerChoice}`); // just so I can check game logic
-console.log(playRound(humanChoice, computerChoice));
+    function playRound(humanChoice, computerChoice) {
+        humanChoice = humanChoice.toLowerCase();
+    
+        if (humanChoice === computerChoice) {
+            message = "You tie.";
+            return "tie";
+        }
+
+        else if (humanChoice === "rock" && computerChoice === "paper") {
+            message = "Paper beats rock, you lose.";
+            return "computer";
+        }
+
+        else if (humanChoice === "rock" && computerChoice === "scissors") {
+            message = "Rock beats scissors, you win!";
+            return "human";
+            humanScore++;
+        }
+
+        else if (humanChoice === "paper" && computerChoice === "rock") {
+            message = "Paper beats rock, you win!"
+            return "human";
+        }
+
+        else if (humanChoice === "paper" && computerChoice === "scissors") {
+            message = "Scissors beat paper, you lose."
+            return "computer";
+        }
+
+        else if (humanChoice === "scissors" && computerChoice === "rock") {
+            message = "Rock beats scissors, you lose."
+            return "computer";
+        }
+
+        else if (humanChoice === "scissors" && computerChoice === "paper") {
+            message = "Scissors beat paper, you win!";
+            return "human";
+        }
+    }
+
+    let result = playRound(humanChoice, computerChoice); 
+
+    if (result === "human") {
+        humanScore++;
+    } else if (result === "computer") {
+        computerScore++;
+    }
+
+    console.log(message);
+    console.log(`Your score: ${humanScore}, Computer score: ${computerScore}`)
+    console.log(`human choice ${humanChoice}, computer choice ${computerChoice}`); // just so I can check game logic
+}
+
+
+/*console.log(getComputerChoice()); -- warning, this was logging a separate value from
+computerChoice that playRound() uses, making it seem like the game logic is broken*/
