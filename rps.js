@@ -15,6 +15,9 @@ function getHumanChoice() {
     return window.prompt("Rock, paper, or scissors?");
 }
 
+let humanScore = 0;
+let computerScore = 0;
+
 for (let i = 0; i < 5; i++) {
     playGame();
 }
@@ -23,8 +26,6 @@ function playGame() {
  
     const humanChoice = getHumanChoice();
     const computerChoice = getComputerChoice();
-    let humanScore = 0;
-    let computerScore = 0;
     let message;
 
     function playRound(humanChoice, computerChoice) {
@@ -43,7 +44,6 @@ function playGame() {
         else if (humanChoice === "rock" && computerChoice === "scissors") {
             message = "Rock beats scissors, you win!";
             return "human";
-            humanScore++;
         }
 
         else if (humanChoice === "paper" && computerChoice === "rock") {
@@ -67,7 +67,7 @@ function playGame() {
         }
     }
 
-    let result = playRound(humanChoice, computerChoice); 
+    const result = playRound(humanChoice, computerChoice); 
 
     if (result === "human") {
         humanScore++;
