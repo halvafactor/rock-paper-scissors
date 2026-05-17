@@ -80,6 +80,12 @@ for (let i = 0; i < 5; i++) {
     playGame();
 }
 
+if (humanScore > computerScore) {
+    console.log("You win!");
+} else {
+    console.log("You lose.");
+}
+
 
 /*console.log(getComputerChoice()); -- warning, this was logging a separate value from
 computerChoice that playRound() uses, making it seem like the game logic is broken*/
