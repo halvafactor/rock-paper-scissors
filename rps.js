@@ -1,3 +1,6 @@
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
     const number = Math.floor(Math.random() * 3);
     if (number === 0) {
@@ -13,13 +16,6 @@ function getComputerChoice() {
 
 function getHumanChoice() {
     return window.prompt("Rock, paper, or scissors?");
-}
-
-let humanScore = 0;
-let computerScore = 0;
-
-for (let i = 0; i < 5; i++) {
-    playGame();
 }
 
 function playGame() {
@@ -78,6 +74,10 @@ function playGame() {
     console.log(message);
     console.log(`Your score: ${humanScore}, Computer score: ${computerScore}`)
     console.log(`human choice ${humanChoice}, computer choice ${computerChoice}`); // just so I can check game logic
+}
+
+for (let i = 0; i < 5; i++) {
+    playGame();
 }
 
 
