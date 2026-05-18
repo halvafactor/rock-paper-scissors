@@ -3,14 +3,13 @@ let computerScore = 0;
 
 function getComputerChoice() {
     const number = Math.floor(Math.random() * 3);
-    if (number === 0) {
-        return "rock";
-    }
-    else if (number === 1) {
-        return "paper";
-    }
-    else {
-        return "scissors";
+    switch(number) {
+        case 0:
+            return "rock";
+        case 1: 
+            return "paper";
+        case 2:
+            return "scissors";
     }
 }
 
@@ -85,7 +84,3 @@ if (humanScore > computerScore) {
 } else {
     console.log("You lose.");
 }
-
-
-/*console.log(getComputerChoice()); -- warning, this was logging a separate value from
-computerChoice that playRound() uses, making it seem like the game logic is broken*/
