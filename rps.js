@@ -1,7 +1,7 @@
 let humanScore = 0;
 let computerScore = 0;
 let message;
-const scoreCard = document.querySelector("div");
+const scoreCard = document.getElementById("scoreCard");
 let scoreText = document.createElement("p");
 let messageText = document.createElement("p");
 let winnerText = document.createElement("p");
@@ -56,32 +56,42 @@ function playRound(playerSelection, computerChoice) {
     }
 }
 
-const btns = document.querySelectorAll("button");
+const btns = document.querySelectorAll("img");
 btns.forEach((btn) => {
     btn.addEventListener("click", (e) => {
         const playerSelection = e.target.id;
         const computerChoice = getComputerChoice();
         
         const result = playRound(playerSelection, computerChoice);
-        if (result === "human") {
-            humanScore++;
-        } else if (result === "computer") {
-            computerScore++;
-        }
-
-        scoreCard.appendChild(scoreText);
-        scoreText.textContent = `Your score: ${humanScore}, Computer score: ${computerScore}`;
-        scoreCard.appendChild(messageText);
-        messageText.textContent = message;
-
-        if (humanScore === 5) {
-            scoreCard.appendChild(winnerText);
-            winnerText.textContent = "You win!"
-        } else if (computerScore === 5) {
-            scoreCard.appendChild(winnerText);
-            winnerText.textContent = "Computer wins!"
-        }
         
+        if (humanScore === 5 || computerScore === 5) {
+            humanScore = 0;
+            computerScore = 0;
+            messageText.textContent = "";
+            winnerText.textContent = "";
+            scoreText.textContent = "";
+        } else {
+        
+            if (result === "human") {
+                humanScore++;
+            } else if (result === "computer") {
+                computerScore++;
+            }
+
+            scoreCard.appendChild(scoreText);
+                scoreText.textContent = `Your score: ${humanScore}, Computer score: ${computerScore}`;
+                scoreCard.appendChild(messageText);
+                messageText.textContent = message;
+    
+           if (humanScore === 5) {
+                scoreCard.appendChild(winnerText);
+                winnerText.textContent = "You win!"
+            } else if (computerScore === 5) {
+                scoreCard.appendChild(winnerText);
+                winnerText.textContent = "Computer wins!"
+            }
+        }
+        console.log(e.target);
         console.log(message);
         console.log(`Your score: ${humanScore}, Computer score: ${computerScore}`)
         console.log(`human choice ${playerSelection}, computer choice ${computerChoice}`); // just so I can check game logic
