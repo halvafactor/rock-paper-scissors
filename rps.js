@@ -1,6 +1,5 @@
 let humanScore = 0;
 let computerScore = 0;
-let message;
 const scoreCard = document.getElementById("scoreCard");
 let scoreText = document.createElement("p");
 let messageText = document.createElement("p");
@@ -21,48 +20,40 @@ function getComputerChoice() {
 function playRound(playerSelection, computerChoice) {
     
     if (playerSelection === computerChoice) {
-        message = "You tie this round.";
-        return "tie";
+        return ["tie", "You tie this round."];
     }
 
     else if (playerSelection === "rock" && computerChoice === "paper") {
-        message = "Paper beats rock, you lose this round.";
-        return "computer";
+        return ["computer", "Paper beats rock, you lose this round."];
     }
 
     else if (playerSelection === "rock" && computerChoice === "scissors") {
-        message = "Rock beats scissors, you win this round!";
-        return "human";
+        return ["human", "Rock beats scissors, you win this round!"];
     }
 
     else if (playerSelection === "paper" && computerChoice === "rock") {
-        message = "Paper beats rock, you win this round!"
-        return "human";
+        return ["human", "Paper beats rock, you win this round!"]
     }
 
     else if (playerSelection === "paper" && computerChoice === "scissors") {
-        message = "Scissors beat paper, you lose this round."
-        return "computer";
+        return ["computer", "Scissors beat paper, you lose this round."]
     }
 
     else if (playerSelection === "scissors" && computerChoice === "rock") {
-        message = "Rock beats scissors, you lose this round."
-        return "computer";
+        return ["computer", "Rock beats scissors, you lose this round."]
     }
 
     else if (playerSelection === "scissors" && computerChoice === "paper") {
-        message = "Scissors beat paper, you win this round!";
-        return "human";
+        return ["human", "Scissors beat paper, you win this round!"]
     }
 }
 
-const btns = document.querySelectorAll("img");
-btns.forEach((btn) => {
+for (const btn of document.querySelectorAll("img")) {
     btn.addEventListener("click", (e) => {
         const playerSelection = e.target.id;
         const computerChoice = getComputerChoice();
         
-        const result = playRound(playerSelection, computerChoice);
+        const [result, message] = playRound(playerSelection, computerChoice);
         
         if (humanScore === 5 || computerScore === 5) {
             humanScore = 0;
@@ -71,13 +62,12 @@ btns.forEach((btn) => {
             winnerText.textContent = "";
             scoreText.textContent = "";
         } else {
-        
-            if (result === "human") {
-                humanScore++;
-            } else if (result === "computer") {
-                computerScore++;
-            }
 
+            switch (result) {
+                case "human": humanScore++; break
+                case "computer": computerScore++; break
+            }
+        
             scoreCard.appendChild(scoreText);
                 scoreText.textContent = `Your score: ${humanScore}, Computer score: ${computerScore}`;
                 scoreCard.appendChild(messageText);
@@ -96,4 +86,4 @@ btns.forEach((btn) => {
         console.log(`Your score: ${humanScore}, Computer score: ${computerScore}`)
         console.log(`human choice ${playerSelection}, computer choice ${computerChoice}`); // just so I can check game logic
     });
-});
+}
