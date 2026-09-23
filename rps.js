@@ -1,5 +1,10 @@
 let humanScore = 0;
 let computerScore = 0;
+let message;
+const scoreCard = document.querySelector("div");
+let scoreText = document.createElement("p");
+let messageText = document.createElement("p");
+let winnerText = document.createElement("p");
 
 function getComputerChoice() {
     const number = Math.floor(Math.random() * 3);
@@ -11,76 +16,74 @@ function getComputerChoice() {
         case 2:
             return "scissors";
     }
-}
+}   
 
-function getHumanChoice() {
-    return window.prompt("Rock, paper, or scissors?");
-}
-
-function playGame() {
- 
-    const humanChoice = getHumanChoice();
-    const computerChoice = getComputerChoice();
-    let message;
-
-    function playRound(humanChoice, computerChoice) {
-        humanChoice = humanChoice.toLowerCase();
+function playRound(playerSelection, computerChoice) {
     
-        if (humanChoice === computerChoice) {
-            message = "You tie.";
-            return "tie";
-        }
-
-        else if (humanChoice === "rock" && computerChoice === "paper") {
-            message = "Paper beats rock, you lose.";
-            return "computer";
-        }
-
-        else if (humanChoice === "rock" && computerChoice === "scissors") {
-            message = "Rock beats scissors, you win!";
-            return "human";
-        }
-
-        else if (humanChoice === "paper" && computerChoice === "rock") {
-            message = "Paper beats rock, you win!"
-            return "human";
-        }
-
-        else if (humanChoice === "paper" && computerChoice === "scissors") {
-            message = "Scissors beat paper, you lose."
-            return "computer";
-        }
-
-        else if (humanChoice === "scissors" && computerChoice === "rock") {
-            message = "Rock beats scissors, you lose."
-            return "computer";
-        }
-
-        else if (humanChoice === "scissors" && computerChoice === "paper") {
-            message = "Scissors beat paper, you win!";
-            return "human";
-        }
+    if (playerSelection === computerChoice) {
+        message = "You tie this round.";
+        return "tie";
     }
 
-    const result = playRound(humanChoice, computerChoice); 
-
-    if (result === "human") {
-        humanScore++;
-    } else if (result === "computer") {
-        computerScore++;
+    else if (playerSelection === "rock" && computerChoice === "paper") {
+        message = "Paper beats rock, you lose this round.";
+        return "computer";
     }
 
-    console.log(message);
-    console.log(`Your score: ${humanScore}, Computer score: ${computerScore}`)
-    console.log(`human choice ${humanChoice}, computer choice ${computerChoice}`); // just so I can check game logic
+    else if (playerSelection === "rock" && computerChoice === "scissors") {
+        message = "Rock beats scissors, you win this round!";
+        return "human";
+    }
+
+    else if (playerSelection === "paper" && computerChoice === "rock") {
+        message = "Paper beats rock, you win this round!"
+        return "human";
+    }
+
+    else if (playerSelection === "paper" && computerChoice === "scissors") {
+        message = "Scissors beat paper, you lose this round."
+        return "computer";
+    }
+
+    else if (playerSelection === "scissors" && computerChoice === "rock") {
+        message = "Rock beats scissors, you lose this round."
+        return "computer";
+    }
+
+    else if (playerSelection === "scissors" && computerChoice === "paper") {
+        message = "Scissors beat paper, you win this round!";
+        return "human";
+    }
 }
 
-for (let i = 0; i < 5; i++) {
-    playGame();
-}
+const btns = document.querySelectorAll("button");
+btns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+        const playerSelection = e.target.id;
+        const computerChoice = getComputerChoice();
+        
+        const result = playRound(playerSelection, computerChoice);
+        if (result === "human") {
+            humanScore++;
+        } else if (result === "computer") {
+            computerScore++;
+        }
 
-if (humanScore > computerScore) {
-    console.log("You win!");
-} else {
-    console.log("You lose.");
-}
+        scoreCard.appendChild(scoreText);
+        scoreText.textContent = `Your score: ${humanScore}, Computer score: ${computerScore}`;
+        scoreCard.appendChild(messageText);
+        messageText.textContent = message;
+
+        if (humanScore === 5) {
+            scoreCard.appendChild(winnerText);
+            winnerText.textContent = "You win!"
+        } else if (computerScore === 5) {
+            scoreCard.appendChild(winnerText);
+            winnerText.textContent = "Computer wins!"
+        }
+        
+        console.log(message);
+        console.log(`Your score: ${humanScore}, Computer score: ${computerScore}`)
+        console.log(`human choice ${playerSelection}, computer choice ${computerChoice}`); // just so I can check game logic
+    });
+});
