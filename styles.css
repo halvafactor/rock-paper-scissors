@@ -1,0 +1,17 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif, monospace;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+}
+
+#choices {
+    display: flex;
+    justify-content: center;
+}
+
+#scoreCard {
+    text-align: center;
+}
